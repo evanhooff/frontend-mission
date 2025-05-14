@@ -6,7 +6,7 @@ const { data: animals } = await useAsyncData('nature-animals', () => {
 </script>
 
 <template>
-  <PageSection v-if="animals?.length" title="Nature">
+  <LayoutPageSection v-if="animals?.length" title="Nature">
     <div class="grid gap-4">
       <ExampleNatureAnimal
         v-for="animal in animals"
@@ -14,5 +14,5 @@ const { data: animals } = await useAsyncData('nature-animals', () => {
         :animal="animal"
       />
     </div>
-  </PageSection>
+  </LayoutPageSection>
 </template>

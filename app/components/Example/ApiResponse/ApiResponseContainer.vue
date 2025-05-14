@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <ExampleApiResponse v-if="props.status === 'success' && props.data" :response="props.data" />
+  <ExampleApiResponse v-if="props.status === 'success' && props.data" :data="props.data" />
   <div v-if="props.status === 'success' && !props.data">
     No data
   </div>

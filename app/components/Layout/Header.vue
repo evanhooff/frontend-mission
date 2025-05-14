@@ -4,10 +4,16 @@
       <nav>
         <ul class="flex gap-2">
           <li>
-            <ApplicationHeaderLink to="/" label="Home" />
+            <LayoutNavigationLink to="/" label="Home" />
           </li>
           <li>
-            <ApplicationHeaderLink to="/assignment" label="Read the assignment instructions" />
+            <LayoutNavigationLink to="/pokemon/list" label="Pokemon" />
+          </li>
+          <li>
+            <LayoutNavigationLink to="/rickandmorty/list" label="Rick & Morty" />
+          </li>
+          <li>
+            <LayoutNavigationLink to="/assignment" label="Read the assignment instructions" />
           </li>
         </ul>
       </nav>
