@@ -18,6 +18,13 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  runtimeConfig: {
+    foo: 'test',
+    public: {
+      bar: 'test',
+    },
+  },
+
   future: {
     compatibilityVersion: 4,
   },
@@ -43,11 +50,14 @@ export default defineNuxtConfig({
     endpoints: {
       pokemon: {
         url: 'https://pokeapi.co/api/v2',
+        allowedUrls: ['https://pokeapi.co/api/v2/*'],
       },
       rickAndMorty: {
         url: 'https://rickandmortyapi.com/api',
+        allowedUrls: ['https://rickandmortyapi.com/api/*'],
       },
     },
+    client: true,
   },
 
   eslint: {
@@ -61,6 +71,9 @@ export default defineNuxtConfig({
 
   icon: {
     provider: 'iconify',
+  },
+  pinia: {
+    storesDirs: ['./stores/**'],
   },
 
   pwa,

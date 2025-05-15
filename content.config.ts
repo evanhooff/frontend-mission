@@ -3,8 +3,18 @@ import { defineCollection, defineContentConfig, z } from '@nuxt/content'
 export default defineContentConfig({
   collections: {
     content: defineCollection({
-      source: '**/*.md',
+      source: '**/*.json',
       type: 'page',
+      schema: z.object({
+        title: z.string(),
+        label: z.string(),
+        universe: z.string(),
+        to: z.string(),
+        description: z.string(),
+        image: z.string().optional(),
+        endpoint: z.string().optional(),
+        ENV: z.string().optional(),
+      }),
     }),
 
     lordOfTheRingsCharacter: defineCollection({
