@@ -1,6 +1,7 @@
 {
   "title": "Pokémon",
   "label": "Pokémon",
+  "universe": "pokemon",
   "to": "/pokemon",
   "description": "Pokémon is a media franchise created by Satoshi Tajiri and Ken Sugimori, and is managed by The Pokémon Company, a collaboration between Nintendo, Game Freak, and Creatures. The franchise centers around fictional creatures called 'Pokémon', which humans, known as Pokémon Trainers, catch and train to battle each other for sport.",
   "image": "/images/pokemon.jpg",

@@ -1,5 +1,12 @@
 <!-- Make 2 variants, horizontal and vertical -->
-<!-- with flex? -->
+<script setup>
+import { inject } from 'vue'
+
+// styling based on universe
+const { universe } = inject('universe')
+// use tailwindcss to set the theme of the universe
+</script>
+
 <template>
   <UCard>
     <template #header>

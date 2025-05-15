@@ -1,84 +1,64 @@
 <script setup lang="ts">
-// import type { NamedApiResourceList, Pokemon } from 'pokeapi-typescript'
-// import { computed, ref } from 'vue'
+import { getCurrentPage } from '@/helpers/pagination.helper'
+import { usePaginationStore } from '@/stores/pagination'
+import { provide, ref } from 'vue'
 
 const { path } = useRoute()
-// const runtimeConfig = useRuntimeConfig()
 
+// abstract the function to a composable
+// provide page settings to the child components
 const { data: page } = await useAsyncData(path, () => {
   return queryCollection('content').path(path).first()
 })
-// console.warn('pageSettings', page.value?.body.endpoint)
-// not working
-// console.warn(runtimeConfig.API_ENDPOINT_POKEMON)
 
 interface PageSettings {
   title: string
   description: string
   image: string
   endpoint: string
+  universe: string
 }
-
 const pageSettings = computed(() => {
   return {
     title: page.value?.title,
     description: page.value?.description,
     image: page.value?.image,
     endpoint: page.value?.endpoint,
+    universe: page.value?.universe,
   } as PageSettings
 })
 
+// provide page settings to the child components
+const universe = ref(pageSettings.value.universe)
+provide('universe', { universe })
+
+// get data from the endpoint, cache via nuxtApp
+// with key not possible? https://github.com/nuxt/nuxt/issues/21532
 const { data: items } = await useFetch(pageSettings.value.endpoint)
-console.warn('items', items.value)
-// const items = computed(() => {
-//   return $fetch(pageSettings.value.endpoint)
-// })
+// const { data: items } = useNuxtData(`${ref(universe)}`)
+
+const paginationStore = usePaginationStore()
+// wont work for the rick and morty api, so this needs to be added to the page settings
+// const currentPage = getCurrentPage(items.value.next, items.value.previous)
+paginationStore.update({
+  total: items.value.count,
+  current: 1,
+})
 
 definePageMeta({
   layout: 'list',
 })
-// const { data } = await $externalApis(
-//   'pokemon',
-//   {
-//     headers: {
-//       'externalApis-Endpoint-Url': 'https://pokeapi.co/api/v2',
-//     },
-//   },
-// )
 
 // why use nuxt-api-party instead of the baked-in useFetch?
 // https://nuxt.com/docs/getting-started/data-fetching#usefetch
 // const { data } = usePokemonData(pokemon)
 // const { data } = await useFetch('https://pokeapi.co/api/v2/pokemon')
 // images are at https://img.pokemondb.net/artwork/{name}.jpg
-
-// Type to color mapping
-// could come from https://pokeapi.co/api/v2/type/1 sprite
-// const typeColors = {
-//   Grass: 'bg-green-500',
-//   Poison: 'bg-purple-500',
-//   Fire: 'bg-red-500',
-//   Water: 'bg-blue-500',
-//   Electric: 'bg-yellow-500',
-//   Normal: 'bg-gray-500',
-//   Bug: 'bg-lime-500',
-//   Flying: 'bg-sky-400',
-//   Fighting: 'bg-orange-600',
-//   Psychic: 'bg-pink-500',
-//   Rock: 'bg-amber-700',
-//   Ground: 'bg-amber-500',
-//   Ghost: 'bg-indigo-600',
-//   Ice: 'bg-cyan-400',
-//   Dragon: 'bg-violet-600',
-//   Dark: 'bg-gray-700',
-//   Steel: 'bg-slate-400',
-//   Fairy: 'bg-pink-300',
-// }
 </script>
 
 <template>
   <Suspense>
-    <LayoutPageSection :title="pageSettings?.title">
+    <LayoutPageSection :title="pageSettings?.title || 'undefined'">
       <!-- Header with search and filters -->
       <ListCard
         v-for="item in items.results"
@@ -89,10 +69,11 @@ definePageMeta({
         </template>
 
         <template #content>
-          <div>{{ item.name }}</div>
+          <div>{{ item.url }}</div>
         </template>
         <template #footer>
-          <div>{{ item.url }}</div>
+          <UButton no-prefetch :to="`/${universe}/${item.name}`" :label="item.name" variant="ghost" />
+          <!-- <UButton no-prefetch :to="`${item.name}`" :label="item.name" variant="ghost" /> -->
         </template>
       </ListCard>
     </LayoutPageSection>

@@ -8,6 +8,7 @@ export default defineContentConfig({
       schema: z.object({
         title: z.string(),
         label: z.string(),
+        universe: z.string(),
         to: z.string(),
         description: z.string(),
         image: z.string().optional(),

@@ -72,6 +72,9 @@ export default defineNuxtConfig({
   icon: {
     provider: 'iconify',
   },
+  pinia: {
+    storesDirs: ['./stores/**'],
+  },
 
   pwa,
 })
