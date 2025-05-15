@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
   to: string
-  query: string // TODO: add type safe mapping for query matching environment variables
   label: string
 }>()
 </script>
@@ -9,5 +8,5 @@ const props = defineProps<{
 <template>
   <!-- https://ui.nuxt.com/components/button -->
   <!-- a button is not a link, but seems the UButton component takes care of this -->
-  <UButton :to="props.to" :label="props.label" :query="query" variant="ghost" />
+  <UButton :to="props.to" :label="props.label" variant="ghost" />
 </template>

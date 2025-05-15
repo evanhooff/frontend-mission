@@ -2,12 +2,37 @@
 // import type { NamedApiResourceList, Pokemon } from 'pokeapi-typescript'
 // import { computed, ref } from 'vue'
 
-const { params } = useRoute('page-list')
-const runtimeConfig = useRuntimeConfig()
+const { path } = useRoute()
+// const runtimeConfig = useRuntimeConfig()
 
-console.warn(runtimeConfig.API_ENDPOINT_POKEMON)
+const { data: page } = await useAsyncData(path, () => {
+  return queryCollection('content').path(path).first()
+})
+// console.warn('pageSettings', page.value?.body.endpoint)
+// not working
+// console.warn(runtimeConfig.API_ENDPOINT_POKEMON)
 
-const { page } = params
+interface PageSettings {
+  title: string
+  description: string
+  image: string
+  endpoint: string
+}
+
+const pageSettings = computed(() => {
+  return {
+    title: page.value?.title,
+    description: page.value?.description,
+    image: page.value?.image,
+    endpoint: page.value?.endpoint,
+  } as PageSettings
+})
+
+const { data: items } = await useFetch(pageSettings.value.endpoint)
+console.warn('items', items.value)
+// const items = computed(() => {
+//   return $fetch(pageSettings.value.endpoint)
+// })
 
 definePageMeta({
   layout: 'list',
@@ -53,25 +78,23 @@ definePageMeta({
 
 <template>
   <Suspense>
-    <LayoutPageSection title="pokemon-list" class="pokemon-list">
+    <LayoutPageSection :title="pageSettings?.title">
       <!-- Header with search and filters -->
-      <ExampleApiResponse :data="data" />
-      {{ data.count }}
-      <!-- <ListCard
-        v-for="pokemon in data?.results"
-        :key="pokemon.name"
+      <ListCard
+        v-for="item in items.results"
+        :key="item.name"
       >
-        <template #title>
-          <div>{{ pokemon.name }}</div>
+        <template #header>
+          <div>{{ item.name }}</div>
         </template>
 
         <template #content>
-          <div>Contetn</div>
+          <div>{{ item.name }}</div>
         </template>
         <template #footer>
-          <div>{{ pokemon.footer }}</div>
+          <div>{{ item.url }}</div>
         </template>
-      </ListCard> -->
+      </ListCard>
     </LayoutPageSection>
 
     <!-- loading state via #fallback slot -->
