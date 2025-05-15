@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Home",
+    "_path": "/"
+  },
+  {
+    "title": "About",
+    "_path": "/about"
+  },
+  {
+    "title": "Contact",
+    "_path": "/contact"
+  }
+]

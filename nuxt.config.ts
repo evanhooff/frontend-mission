@@ -18,6 +18,16 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  runtimeConfig: {
+    // The private keys which are only available within server-side
+    apiSecret: '123',
+    // Keys within public, will be also exposed to the client-side
+    public: {
+      API_ENDPOINT_POKEMON: process.env.API_ENDPOINT_POKEMON || 'https://pokeapi.co/api/v2',
+      API_ENDPOINT_RICK_AND_MORTY: process.env.API_ENDPOINT_RICK_AND_MORTY || 'https://rickandmortyapi.com/api',
+    },
+  },
+
   future: {
     compatibilityVersion: 4,
   },
@@ -43,11 +53,14 @@ export default defineNuxtConfig({
     endpoints: {
       pokemon: {
         url: 'https://pokeapi.co/api/v2',
+        allowedUrls: ['https://pokeapi.co/api/v2/*'],
       },
       rickAndMorty: {
         url: 'https://rickandmortyapi.com/api',
+        allowedUrls: ['https://rickandmortyapi.com/api/*'],
       },
     },
+    client: true,
   },
 
   eslint: {

@@ -9,8 +9,8 @@ definePageMeta({
 
 // why use nuxt-api-party instead of the baked-in useFetch?
 // https://nuxt.com/docs/getting-started/data-fetching#usefetch
-// const { data } = usePokemonData('pokemon')
-const { data } = await useFetch('https://rickandmortyapi.com/api/character')
+const { data } = useRickAndMortyData('character')
+// const { data } = await useFetch('https://rickandmortyapi.com/api/character')
 </script>
 
 <template>

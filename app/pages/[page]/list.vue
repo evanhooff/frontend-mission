@@ -1,16 +1,30 @@
-<!-- PokemonList.vue -->
-<script setup  lang="ts">
+<script setup lang="ts">
 // import type { NamedApiResourceList, Pokemon } from 'pokeapi-typescript'
-import { computed, ref } from 'vue'
+// import { computed, ref } from 'vue'
+
+const { params } = useRoute('page-list')
+const runtimeConfig = useRuntimeConfig()
+
+console.warn(runtimeConfig.API_ENDPOINT_POKEMON)
+
+const { page } = params
 
 definePageMeta({
   layout: 'list',
 })
+// const { data } = await $externalApis(
+//   'pokemon',
+//   {
+//     headers: {
+//       'externalApis-Endpoint-Url': 'https://pokeapi.co/api/v2',
+//     },
+//   },
+// )
 
 // why use nuxt-api-party instead of the baked-in useFetch?
 // https://nuxt.com/docs/getting-started/data-fetching#usefetch
-// const { data } = usePokemonData('pokemon')
-const { data } = await useFetch('https://pokeapi.co/api/v2/pokemon')
+// const { data } = usePokemonData(pokemon)
+// const { data } = await useFetch('https://pokeapi.co/api/v2/pokemon')
 // images are at https://img.pokemondb.net/artwork/{name}.jpg
 
 // Type to color mapping
@@ -43,7 +57,7 @@ const { data } = await useFetch('https://pokeapi.co/api/v2/pokemon')
       <!-- Header with search and filters -->
       <ExampleApiResponse :data="data" />
       {{ data.count }}
-      <ListCard
+      <!-- <ListCard
         v-for="pokemon in data?.results"
         :key="pokemon.name"
       >
@@ -57,7 +71,7 @@ const { data } = await useFetch('https://pokeapi.co/api/v2/pokemon')
         <template #footer>
           <div>{{ pokemon.footer }}</div>
         </template>
-      </ListCard>
+      </ListCard> -->
     </LayoutPageSection>
 
     <!-- loading state via #fallback slot -->
