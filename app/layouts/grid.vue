@@ -1,6 +1,9 @@
 <template>
   <div class="min-h-[calc(100vh-var(--application-header-height))] pt-[var(--application-header-height)] isolate">
-    <p>Custom layout for grid view??</p>
+    <p>Custom layout for grid view</p>
+    <button @click="setPageLayout('list')">
+      Grid
+    </button>
     <slot />
   </div>
 </template>

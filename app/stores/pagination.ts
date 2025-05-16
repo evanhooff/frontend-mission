@@ -8,7 +8,6 @@ export const usePaginationStore = defineStore('pagination', {
   getters: {
     getTotal: state => state.total,
     getCurrentPage: state => state.current,
-
   },
   actions: {
     update({ total, current }: { total: number, current: number }) {

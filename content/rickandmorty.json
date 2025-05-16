@@ -5,6 +5,5 @@
   "description": "Rick and Morty is an American adult animated science fiction sitcom created by Justin Roiland and Dan Harmon. The series follows the misadventures of an eccentric, alcoholic scientist named Rick Sanchez and his good-hearted but fretful grandson Morty Smith.",
   "endpoint": "https://rickandmortyapi.com/api/character",
   "ENV": "API_ENDPOINT_RICK_AND_MORTY",
-  "images": "https://img.pokemondb.net/artwork/"
-
+  "imagetemplate": "https://rickandmortyapi.com/api/character/avatar/${id}.jpeg"
 }

@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import { ClientOnly } from '#components'
 import { useUniverseStore } from '@/stores/universe'
 
 const universeStore = useUniverseStore()
 
-const { universe } = inject('universe')
+const universe = universeStore.getCurrentUniverse || ''
 const items = computed(() => universeStore.getItemsPerUniverse(universe))
+const settings = computed(() => universeStore.getSettingsByUniverse(universe))
 
-// images are at https://img.pokemondb.net/artwork/{name}.jpg
+const imageTemplate = computed(() => {
+  return settings.value?.imagetemplate.replace(/\$\{(.*?)\}/g, (_, match) => {
+    return item[match] || ''
+  })
+})
 </script>
 
 <template>
@@ -15,11 +21,18 @@ const items = computed(() => universeStore.getItemsPerUniverse(universe))
     :key="item.name"
   >
     <template #header>
-      <div>{{ item.name }}</div>
+      <div>
+        {{ item.name }} {{ settings?.imagetemplate }}
+      </div>
     </template>
 
     <template #content>
-      <div>{{ item.url }}</div>
+      <div>
+        <ClientOnly>
+          <Image :item="item" :imagetemplate="settings?.imagetemplate" />
+        </ClientOnly>
+        {{ item.url }}
+      </div>
     </template>
     <template #footer>
       <UButton no-prefetch :to="`/${universe}/${item.name}`" :label="item.name" variant="ghost" />

@@ -1,10 +1,8 @@
-<script setup>
-// TODO: check if imports are necessary
-// import { inject } from 'vue'
+<script setup lang="ts">
+import { useUniverseStore } from '@/stores/universe'
 
-// styling based on universe
-// const { universe } = inject('universe')
-// use tailwindcss to set the theme of the universe
+const universeStore = useUniverseStore()
+const universe = universeStore.getCurrentUniverse || ''
 </script>
 
 <!-- Make 2 variants, horizontal and vertical -->

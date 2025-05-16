@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// import { getCurrentPage } from '@/helpers/pagination.helper'
 import { usePaginationStore } from '@/stores/pagination'
 import { storeToRefs } from 'pinia'
 
