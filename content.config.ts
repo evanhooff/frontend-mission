@@ -11,7 +11,7 @@ export default defineContentConfig({
         universe: z.string(),
         to: z.string(),
         description: z.string(),
-        image: z.string().optional(),
+        images: z.string().optional(),
         endpoint: z.string().optional(),
         ENV: z.string().optional(),
       }),
