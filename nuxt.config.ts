@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
-    'nuxt-api-party',
     '@nuxt/fonts',
   ],
 
@@ -17,13 +16,6 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css'],
-
-  runtimeConfig: {
-    foo: 'test',
-    public: {
-      bar: 'test',
-    },
-  },
 
   future: {
     compatibilityVersion: 4,
@@ -44,20 +36,6 @@ export default defineNuxtConfig({
       ],
       crawlLinks: true,
     },
-  },
-
-  apiParty: {
-    endpoints: {
-      pokemon: {
-        url: 'https://pokeapi.co/api/v2',
-        allowedUrls: ['https://pokeapi.co/api/v2/*'],
-      },
-      rickAndMorty: {
-        url: 'https://rickandmortyapi.com/api',
-        allowedUrls: ['https://rickandmortyapi.com/api/*'],
-      },
-    },
-    client: true,
   },
 
   eslint: {

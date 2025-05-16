@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 
 const paginationStore = usePaginationStore()
 const { total, current } = storeToRefs(paginationStore)
-const limit = 20 // TODO: check
+const limit = 20 // TODO: make dynamic
 const page = ref(current)
 </script>
 

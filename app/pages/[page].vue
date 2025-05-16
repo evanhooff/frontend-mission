@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { getCurrentPage } from '@/helpers/pagination.helper'
+// import { getCurrentPage } from '@/helpers/pagination.helper'
 import { usePaginationStore } from '@/stores/pagination'
 import { provide, ref } from 'vue'
 
+// TODO: abstract the function to a composable
+// TODO: provide page settings to the child components
 const { path } = useRoute()
-
-// abstract the function to a composable
-// provide page settings to the child components
 const { data: page } = await useAsyncData(path, () => {
   return queryCollection('content').path(path).first()
 })
 
+// TODO: abstract type definition to /types folder
 interface PageSettings {
   title: string
   description: string
@@ -33,12 +33,15 @@ const universe = ref(pageSettings.value.universe)
 provide('universe', { universe })
 
 // get data from the endpoint, cache via nuxtApp
-// with key not possible? https://github.com/nuxt/nuxt/issues/21532
-const { data: items } = await useFetch(pageSettings.value.endpoint)
+// with key not possible? https://github.com/nuxt/nuxt/issues/21532 -> use pinia
+// why use nuxt-api-party instead of the baked-in useFetch?
+// https://nuxt.com/docs/getting-started/data-fetching#usefetch
 // const { data: items } = useNuxtData(`${ref(universe)}`)
 
+const { data: items } = await useFetch(pageSettings.value.endpoint)
+
 const paginationStore = usePaginationStore()
-// wont work for the rick and morty api, so this needs to be added to the page settings
+// won'st work for the rick and morty api, so this needs to be added to the page settings
 // const currentPage = getCurrentPage(items.value.next, items.value.previous)
 paginationStore.update({
   total: items.value.count,
@@ -49,10 +52,6 @@ definePageMeta({
   layout: 'list',
 })
 
-// why use nuxt-api-party instead of the baked-in useFetch?
-// https://nuxt.com/docs/getting-started/data-fetching#usefetch
-// const { data } = usePokemonData(pokemon)
-// const { data } = await useFetch('https://pokeapi.co/api/v2/pokemon')
 // images are at https://img.pokemondb.net/artwork/{name}.jpg
 </script>
 
