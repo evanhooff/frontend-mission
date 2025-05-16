@@ -12,7 +12,6 @@ export interface UniverseSettings {
 }
 
 const { path } = useRoute()
-console.warn('path', path)
 const { data: page } = await useAsyncData(path, () => {
   return queryCollection('content').path(path).first()
 })
@@ -30,10 +29,7 @@ const universeStore = useUniverseStore()
 universeStore.storeUniverseEndpoint({ universe: universeSettings.value.universe, endpoint: universeSettings.value.endpoint })
 
 const universe = ref(universeSettings.value?.universe)
-console.warn('universeSettings', universe)
 provide('universe', { universe })
-const foo = useFoo()
-console.warn('foo', foo)
 
 // get data from the endpoint, cache via nuxtApp
 // with key not possible? https://github.com/nuxt/nuxt/issues/21532 -> use pinia
@@ -41,18 +37,12 @@ console.warn('foo', foo)
 // https://nuxt.com/docs/getting-started/data-fetching#usefetch
 // const { data: items } = useNuxtData(`${ref(universe)}`)
 const { pending, data: response, refresh } = await useFetch(() => universeSettings.value?.endpoint)
-// const { pending, data: response, refresh } = useFetch(universeSettings.value?.endpoint, { lazy: false })
-// const items = ref()
-// try {
-//   const { pending, data } = useFetch(universeSettings.value.endpoint, { lazy: false })
-//   items.value = data.value.results
-// }
-// catch (error) {
-//   console.error('Error fetching data:', error)
-// }
+
 const items = computed(() => {
   return response.value?.results
 }) as any
+
+universeStore.storeItemsPerUniverse(universeSettings.value.universe, items.value || [])
 
 definePageMeta({
   layout: 'list',
@@ -60,39 +50,18 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <LayoutSkeleton v-if="pending" />
-    <div v-else>
+  <Suspense>
+    <LayoutSkeleton v-if="pending" class-name="w-full h-100" />
+    <LayoutPageSection v-else :title="universeSettings?.title || 'undefined'">
       <button @click="refresh">
         Refresh
       </button>
-      <!-- <ClientOnly>
-        <ListItems :items="items" />
-      </ClientOnly> -->
-      <span v-for="(item, index) in items" :key="index">
-        {{ item.name }}
-      </span>
-    </div>
-  </div>
-  <!-- <ClientOnly>
-    <Suspense>
-      <LayoutPageSection :title="universeSettings?.title || 'undefined'">
-        <Suspense>
-          <ListItems :items="items.value" />
-          loading state via #fallback slot
-          <template #fallback>
-            Loading...
-          </template>
-        </Suspense>
-      </LayoutPageSection>
-      <template #fallback>
-        <LayoutSkeleton />
-      </template>
-    </Suspense>
+      <ListItems />
+    </LayoutPageSection>
     <template #placeholder>
-      <LayoutSkeleton />
+      <LayoutSkeleton class-name="w-full h-100" />
     </template>
-  </ClientOnly> -->
+  </Suspense>
 </template>
 
 <style>

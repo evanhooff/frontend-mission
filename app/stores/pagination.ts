@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 
 export const usePaginationStore = defineStore('pagination', {
   state: () => ({
-    total: undefined,
-    current: undefined,
+    total: undefined as number | undefined,
+    current: undefined as number | undefined,
   }),
   getters: {
     getTotal: state => state.total,
@@ -11,8 +11,7 @@ export const usePaginationStore = defineStore('pagination', {
 
   },
   actions: {
-    update({ total, current }) {
-      console.warn('update pagination store', { total, current })
+    update({ total, current }: { total: number, current: number }) {
       this.total = total
       this.current = current
     },
