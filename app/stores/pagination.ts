@@ -8,10 +8,7 @@ export const usePaginationStore = defineStore('pagination', {
   getters: {
     getTotal: state => state.total,
     getCurrentPage: state => state.current,
-    // getter with argument
-    // getUserById: (state) => {
-    //     return (userId) => state.users.find((user) => user.id === userId)
-    // },
+
   },
   actions: {
     update({ total, current }) {

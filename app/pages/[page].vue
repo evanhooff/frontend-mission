@@ -1,87 +1,98 @@
 <script setup lang="ts">
 // import { getCurrentPage } from '@/helpers/pagination.helper'
-import { usePaginationStore } from '@/stores/pagination'
-import { provide, ref } from 'vue'
+import { LayoutSkeleton, ListItems } from '#components'
+import { useUniverseStore } from '~/stores/universe'
 
-// TODO: abstract the function to a composable
-// TODO: provide page settings to the child components
+export interface UniverseSettings {
+  title: string
+  description: string
+  images: string
+  endpoint: string
+  universe: string
+}
+
 const { path } = useRoute()
+console.warn('path', path)
 const { data: page } = await useAsyncData(path, () => {
   return queryCollection('content').path(path).first()
 })
 
-// TODO: abstract type definition to /types folder
-interface PageSettings {
-  title: string
-  description: string
-  image: string
-  endpoint: string
-  universe: string
-}
-const pageSettings = computed(() => {
+const universeSettings = computed(() => {
   return {
     title: page.value?.title,
     description: page.value?.description,
-    image: page.value?.image,
+    images: page.value?.images,
     endpoint: page.value?.endpoint,
     universe: page.value?.universe,
-  } as PageSettings
+  } as UniverseSettings
 })
+const universeStore = useUniverseStore()
+universeStore.storeUniverseEndpoint({ universe: universeSettings.value.universe, endpoint: universeSettings.value.endpoint })
 
-// provide page settings to the child components
-const universe = ref(pageSettings.value.universe)
+const universe = ref(universeSettings.value?.universe)
+console.warn('universeSettings', universe)
 provide('universe', { universe })
+const foo = useFoo()
+console.warn('foo', foo)
 
 // get data from the endpoint, cache via nuxtApp
 // with key not possible? https://github.com/nuxt/nuxt/issues/21532 -> use pinia
 // why use nuxt-api-party instead of the baked-in useFetch?
 // https://nuxt.com/docs/getting-started/data-fetching#usefetch
 // const { data: items } = useNuxtData(`${ref(universe)}`)
-
-const { data: items } = await useFetch(pageSettings.value.endpoint)
-
-const paginationStore = usePaginationStore()
-// won'st work for the rick and morty api, so this needs to be added to the page settings
-// const currentPage = getCurrentPage(items.value.next, items.value.previous)
-paginationStore.update({
-  total: items.value.count,
-  current: 1,
-})
+const { pending, data: response, refresh } = await useFetch(() => universeSettings.value?.endpoint)
+// const { pending, data: response, refresh } = useFetch(universeSettings.value?.endpoint, { lazy: false })
+// const items = ref()
+// try {
+//   const { pending, data } = useFetch(universeSettings.value.endpoint, { lazy: false })
+//   items.value = data.value.results
+// }
+// catch (error) {
+//   console.error('Error fetching data:', error)
+// }
+const items = computed(() => {
+  return response.value?.results
+}) as any
 
 definePageMeta({
   layout: 'list',
 })
-
-// images are at https://img.pokemondb.net/artwork/{name}.jpg
 </script>
 
 <template>
-  <Suspense>
-    <LayoutPageSection :title="pageSettings?.title || 'undefined'">
-      <!-- Header with search and filters -->
-      <ListCard
-        v-for="item in items.results"
-        :key="item.name"
-      >
-        <template #header>
-          <div>{{ item.name }}</div>
-        </template>
-
-        <template #content>
-          <div>{{ item.url }}</div>
-        </template>
-        <template #footer>
-          <UButton no-prefetch :to="`/${universe}/${item.name}`" :label="item.name" variant="ghost" />
-          <!-- <UButton no-prefetch :to="`${item.name}`" :label="item.name" variant="ghost" /> -->
-        </template>
-      </ListCard>
-    </LayoutPageSection>
-
-    <!-- loading state via #fallback slot -->
-    <template #fallback>
-      Loading...
+  <div>
+    <LayoutSkeleton v-if="pending" />
+    <div v-else>
+      <button @click="refresh">
+        Refresh
+      </button>
+      <!-- <ClientOnly>
+        <ListItems :items="items" />
+      </ClientOnly> -->
+      <span v-for="(item, index) in items" :key="index">
+        {{ item.name }}
+      </span>
+    </div>
+  </div>
+  <!-- <ClientOnly>
+    <Suspense>
+      <LayoutPageSection :title="universeSettings?.title || 'undefined'">
+        <Suspense>
+          <ListItems :items="items.value" />
+          loading state via #fallback slot
+          <template #fallback>
+            Loading...
+          </template>
+        </Suspense>
+      </LayoutPageSection>
+      <template #fallback>
+        <LayoutSkeleton />
+      </template>
+    </Suspense>
+    <template #placeholder>
+      <LayoutSkeleton />
     </template>
-  </Suspense>
+  </ClientOnly> -->
 </template>
 
 <style>
