@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
-    'nuxt-api-party',
     '@nuxt/fonts',
   ],
 
@@ -39,17 +38,6 @@ export default defineNuxtConfig({
     },
   },
 
-  apiParty: {
-    endpoints: {
-      pokemon: {
-        url: 'https://pokeapi.co/api/v2',
-      },
-      rickAndMorty: {
-        url: 'https://rickandmortyapi.com/api',
-      },
-    },
-  },
-
   eslint: {
     config: {
       standalone: false,
@@ -61,6 +49,9 @@ export default defineNuxtConfig({
 
   icon: {
     provider: 'iconify',
+  },
+  pinia: {
+    storesDirs: ['./stores/**'],
   },
 
   pwa,

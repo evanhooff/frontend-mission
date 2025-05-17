@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { appName } from '~/constants'
+import { appName } from './constants'
 
 useHead({
   title: appName,
@@ -9,9 +9,11 @@ useHead({
 <template>
   <VitePwaManifest />
   <UApp>
-    <Application>
-      <ApplicationHeader />
+    <NuxtLoadingIndicator />
+    <ApplicationHeader />
+    <NuxtLayout class="min-h-[calc(100vh-var(--application-header-height))] pt-[var(--application-header-height)] isolate">
       <NuxtPage />
-    </Application>
+    </NuxtLayout>
+    <ApplicationFooter />
   </UApp>
 </template>
