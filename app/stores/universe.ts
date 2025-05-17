@@ -1,10 +1,5 @@
+import type { SettingsCollectionItem } from '@nuxt/content'
 import { defineStore } from 'pinia'
-
-interface pageSettings {
-  universe: string
-  endpoint: string
-  imagetemplate: string
-}
 
 interface ItemsPerUniverse {
   [key: string]: any[]
@@ -12,7 +7,7 @@ interface ItemsPerUniverse {
 
 export const useUniverseStore = defineStore('universe', {
   state: () => ({
-    pageSettings: [] as pageSettings[],
+    pageSettings: [] as SettingsCollectionItem[],
     itemsPerUniverse: {} as ItemsPerUniverse,
     currentUniverse: '' as string,
   }),
@@ -27,7 +22,7 @@ export const useUniverseStore = defineStore('universe', {
       }
     },
     getSettingsByUniverse: (state) => {
-      return (universe: string): pageSettings | undefined => {
+      return (universe: string): SettingsCollectionItem | undefined => {
         const key = ref(universe)
         return state.pageSettings.find(settings => settings.universe === key.value)
       }
@@ -37,7 +32,7 @@ export const useUniverseStore = defineStore('universe', {
     setCurrentUniverse(universe: string) {
       this.currentUniverse = universe
     },
-    async storeUniverseSettings(settings: pageSettings) {
+    async storeUniverseSettings(settings: SettingsCollectionItem) {
       const universe = this.getSettingsByUniverse(settings.universe)
       if (universe) {
         return
@@ -45,7 +40,7 @@ export const useUniverseStore = defineStore('universe', {
       return this.pageSettings.push(settings)
     },
     async storeItemsPerUniverse(universe: string, items: any[]) {
-      // todo push to the end if the universe already exists
+      // TODO: check length and push to the end if the universe already exists
       return this.itemsPerUniverse[universe] = items
     },
   },

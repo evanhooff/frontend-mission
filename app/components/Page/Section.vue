@@ -11,7 +11,6 @@ const props = defineProps<{
       {{ props.title }}
     </h2>
     <div class="content">
-      Section
       <slot />
     </div>
   </section>
