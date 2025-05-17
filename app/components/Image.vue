@@ -16,6 +16,8 @@ const imageTemplate = computed(() => {
 
 <template>
   <ClientOnly>
-    <img :src="imageTemplate || ''" alt="Image">
+    <div class="max-h-10 max-w-10 aspect-ratio-1/1">
+      <img class="contain w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
+    </div>
   </ClientOnly>
 </template>

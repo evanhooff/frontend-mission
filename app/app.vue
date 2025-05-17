@@ -9,10 +9,11 @@ useHead({
 <template>
   <VitePwaManifest />
   <UApp>
-    <NuxtLayout>
-      <NuxtLoadingIndicator />
-      <LayoutHeader />
+    <NuxtLoadingIndicator />
+    <ApplicationHeader />
+    <NuxtLayout class="min-h-[calc(100vh-var(--application-header-height))] pt-[var(--application-header-height)] isolate">
       <NuxtPage />
     </NuxtLayout>
+    <ApplicationFooter />
   </UApp>
 </template>

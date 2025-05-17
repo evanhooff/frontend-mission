@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { UButton } from '#components'
 import { useUniverseStore } from '@/stores/universe'
 
 const universeStore = useUniverseStore()
@@ -6,12 +7,17 @@ const universe = universeStore.getCurrentUniverse || ''
 </script>
 
 <template>
-  <div class="min-h-[calc(100vh-var(--application-header-height))] pt-[var(--application-header-height)] isolate">
-    <ClientOnly><p>Custom layout for list view for {{ universe }}</p></ClientOnly>
-    <button @click="setPageLayout('grid')">
+  <div>
+    <UButton @click="setPageLayout('grid')">
       Grid
-    </button>
-    <slot />
-    <LayoutPagination />
+    </UButton>
+    <UButton @click="setPageLayout('list')">
+      List
+    </UButton>
+    <ClientOnly><p>Custom layout for list view of {{ universe }}</p></ClientOnly>
+    <!-- TODO: use tailwind variants for base layout styling -->
+    <div class="[&_[data-list=true]]:flex">
+      <slot />
+    </div>
   </div>
 </template>

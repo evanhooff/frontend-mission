@@ -6,9 +6,9 @@ const universe = path
 
 <template>
   <Suspense>
-    <LayoutPageSection title="single item">
+    <PageSection title="single item">
       {{ universe }}
-    </LayoutPageSection>
+    </PageSection>
 
     <!-- loading state via #fallback slot -->
     <template #fallback>

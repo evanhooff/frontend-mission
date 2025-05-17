@@ -6,7 +6,7 @@ const { data: navigation } = await useAsyncData('content', () => queryCollection
   <nav>
     <ul>
       <li>
-        <LayoutNavigationLink
+        <ApplicationNavigationLink
           v-for="(item, index) in navigation"
           :key="index"
           :to="item.path"

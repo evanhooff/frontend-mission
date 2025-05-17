@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // import { getCurrentPage } from '@/helpers/pagination.helper'
-import { LayoutSkeleton, ListItems } from '#components'
+import { PageSection } from '#components'
 import { useUniverseStore } from '@/stores/universe'
 
+// could this be done on router?
 export interface UniverseSettings {
   title: string
   description: string
@@ -11,6 +12,7 @@ export interface UniverseSettings {
   universe: string
 }
 
+// todo do call only when universe is not in store
 const { path } = useRoute()
 const { data: page } = await useAsyncData(path, () => {
   return queryCollection('content').path(path).first()
@@ -19,6 +21,7 @@ const { data: page } = await useAsyncData(path, () => {
 const universeSettings = computed(() => {
   return {
     title: page.value?.title,
+    label: page.value?.label,
     description: page.value?.description,
     endpoint: page.value?.endpoint,
     universe: page.value?.universe,
@@ -38,6 +41,8 @@ universeStore.setCurrentUniverse(universeSettings.value.universe)
 // why use nuxt-api-party instead of the baked-in useFetch?
 // https://nuxt.com/docs/getting-started/data-fetching#usefetch
 // const { data: items } = useNuxtData(`${ref(universe)}`)
+
+// todo do call only when universe is not in store
 const { data: response } = await useFetch(() => universeSettings.value?.endpoint)
 
 const items = computed(() => {
@@ -52,7 +57,17 @@ definePageMeta({
 </script>
 
 <template>
-  <LayoutPageSection :title="universeSettings?.title || 'undefined'">
-    <ListItems />
-  </LayoutPageSection>
+  <ApplicationBaseLayout>
+    <template #header>
+      <h1>{{ universeSettings?.title || 'undefined' }}</h1>
+    </template>
+    <template #main>
+      <PageSection :title="`List of ${universeSettings?.label}`">
+        <ListItems />
+      </PageSection>
+    </template>
+    <template #footer>
+      <LayoutPagination />
+    </template>
+  </ApplicationBaseLayout>
 </template>

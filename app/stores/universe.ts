@@ -45,6 +45,7 @@ export const useUniverseStore = defineStore('universe', {
       return this.pageSettings.push(settings)
     },
     async storeItemsPerUniverse(universe: string, items: any[]) {
+      // todo push to the end if the universe already exists
       return this.itemsPerUniverse[universe] = items
     },
   },
