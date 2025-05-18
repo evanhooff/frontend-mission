@@ -8,7 +8,7 @@ const { data: settings } = await useAsyncData('settings', () => {
   <nav>
     <ul>
       <li>
-        <ApplicationNavigationLink
+        <ApplicationNavigationItem
           v-for="(item, index) in settings"
           :key="index"
           :to="`/${item.universe}`"

@@ -2,7 +2,7 @@ import { defineCollection, defineContentConfig, z } from '@nuxt/content'
 
 export default defineContentConfig({
   collections: {
-    content: defineCollection({
+    universes: defineCollection({
       source: 'universes/*.json',
       type: 'page',
       schema: z.object({

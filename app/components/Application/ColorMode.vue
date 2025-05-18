@@ -4,7 +4,7 @@ import { useUniverseStore } from '@/stores/universe'
 const colorMode = useColorMode()
 
 const { data: universes } = await useAsyncData('universes', () => {
-  return queryCollection('content').all()
+  return queryCollection('universes').all()
 })
 
 const universeStore = useUniverseStore()
