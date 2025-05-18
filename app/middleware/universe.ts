@@ -6,7 +6,7 @@ function updateColorMode(page: string) {
   colorMode.preference = page
 
   // style.css for color definition
-  import(`@/assets/css/${page}.css`)
+  // import(`@/assets/css/${page}.css`)
 }
 
 function updateUniverseStore(page: string) {
