@@ -36,6 +36,15 @@ const isDark = computed({
     >
       {{ detail.label }}
     </UButton>
+    <UButton
+      label="DAISYUI"
+      color="primary"
+      variant="soft"
+      data-set-theme="cupcake"
+      @click="themeChange(false)"
+    >
+      DAISYUI
+    </UButton>
 
     <template #fallback>
       <div class="size-8" />
