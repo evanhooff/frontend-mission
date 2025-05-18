@@ -1,21 +1,10 @@
 <script setup>
-import { useUniverseStore } from '@/stores/universe'
+import { themeChange } from 'theme-change'
 
 const colorMode = useColorMode()
 
 const { data: universes } = await useAsyncData('universes', () => {
   return queryCollection('universes').all()
-})
-
-const universeStore = useUniverseStore()
-const currentUniverse = universeStore.getCurrentUniverse || ''
-const setUniverseStyle = computed({
-  get() {
-    return colorMode.value === currentUniverse
-  },
-  set(value) {
-    colorMode.preference = value.universe
-  },
 })
 
 const isDark = computed({
@@ -36,15 +25,17 @@ const isDark = computed({
       variant="ghost"
       @click="isDark = !isDark"
     />
-
     <UButton
       v-for="(detail, index) in universes"
       :key="index"
       :label="detail.label"
       color="primary"
       variant="ghost"
-      @click="setUniverseStyle = detail"
-    />
+      :data-set-theme="detail.universe"
+      @click="themeChange(false)"
+    >
+      {{ detail.label }}
+    </UButton>
 
     <template #fallback>
       <div class="size-8" />
