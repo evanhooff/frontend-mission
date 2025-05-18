@@ -5,6 +5,8 @@ import { useUniverseStore } from '@/stores/universe'
 const universeStore = useUniverseStore()
 const universe = universeStore.getCurrentUniverse || ''
 
+// This registers the universe details under the 'universe' key.
+// const { data: details, status, error, refresh, clear } = await useAsyncData(universe, () => {
 const { data: details } = await useAsyncData(universe, () => {
   return queryCollection('universes')
     .where('stem', '=', `universes/${universe}`)
@@ -19,17 +21,24 @@ definePageMeta({
 </script>
 
 <template>
-  <ApplicationBaseLayout>
-    <template #header>
-      <h1>{{ details?.title || undefined }}</h1>
+  <Suspense>
+    <ApplicationBaseLayout>
+      <template #header>
+        <h1>{{ details?.title || undefined }}</h1>
+      </template>
+      <template #main>
+        <PageSection :title="`List of ${details?.label}`">
+          <ListItems />
+        </PageSection>
+      </template>
+      <template #footer>
+        <LayoutPagination />
+      </template>
+    </ApplicationBaseLayout>
+
+    <!-- loading state via #fallback slot -->
+    <template #fallback>
+      Loading...
     </template>
-    <template #main>
-      <PageSection :title="`List of ${details?.label}`">
-        <ListItems />
-      </PageSection>
-    </template>
-    <template #footer>
-      <LayoutPagination />
-    </template>
-  </ApplicationBaseLayout>
+  </Suspense>
 </template>

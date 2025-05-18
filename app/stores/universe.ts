@@ -10,16 +10,19 @@ export const useUniverseStore = defineStore('universe', {
     pageSettings: [] as SettingsCollectionItem[],
     itemsPerUniverse: {} as ItemsPerUniverse,
     currentUniverse: '' as string,
+    currentUniverseSettings: {} as SettingsCollectionItem,
   }),
+  hydrate(state) {
+    // in this case we can completely ignore the initial state since we
+    // want to read the value from the browser
+    state.currentUniverse = ''
+  },
   getters: {
     getCurrentUniverse: (state): string => {
       return state.currentUniverse || ''
     },
-    getItemsPerUniverse: (state) => {
-      return (universe: string): any[] => {
-        const key = ref(universe)
-        return state.itemsPerUniverse[key.value] || []
-      }
+    getCurrentUniverseSettings: (state): SettingsCollectionItem => {
+      return state.currentUniverseSettings || {}
     },
     getSettingsByUniverse: (state) => {
       return (universe: string): SettingsCollectionItem | undefined => {
@@ -27,10 +30,19 @@ export const useUniverseStore = defineStore('universe', {
         return state.pageSettings.find(settings => settings.universe === key.value)
       }
     },
+    getItemsPerUniverse: (state) => {
+      return (universe: string): any[] => {
+        const key = ref(universe)
+        return state.itemsPerUniverse[key.value] || []
+      }
+    },
   },
   actions: {
     setCurrentUniverse(universe: string) {
       this.currentUniverse = universe
+      if (this.getSettingsByUniverse(universe)) {
+        this.currentUniverseSettings = this.getSettingsByUniverse(universe) as SettingsCollectionItem
+      }
     },
     async storeUniverseSettings(settings: SettingsCollectionItem) {
       const universe = this.getSettingsByUniverse(settings.universe)
@@ -39,9 +51,21 @@ export const useUniverseStore = defineStore('universe', {
       }
       return this.pageSettings.push(settings)
     },
-    async storeItemsPerUniverse(universe: string, items: any[]) {
+    async fetchUniverseItems(universe: string) {
+      if (this.getSettingsByUniverse(universe)) {
+        const { endpoint, itemsProperty } = this.getSettingsByUniverse(universe) as SettingsCollectionItem
+        const { data } = await useFetch(endpoint, {
+          onResponseError() {
+            throw new Error('Error fetching universe items')
+          },
+        })
+        this.storeItemsPerUniverse(this.currentUniverse, data, itemsProperty)
+      }
+    },
+    async storeItemsPerUniverse(universe: string, data: any, itemsProperty: string) {
+      const items = data.value[itemsProperty]
       // TODO: check length and push to the end if the universe already exists
-      return this.itemsPerUniverse[universe] = items
+      return this.itemsPerUniverse[universe] = ref(items).value
     },
   },
 })

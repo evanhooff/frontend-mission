@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data: settings } = await useAsyncData('settings', () => {
+const { data: settings } = await useAsyncData(() => {
   return queryCollection('settings').all()
 })
 </script>
@@ -7,13 +7,8 @@ const { data: settings } = await useAsyncData('settings', () => {
 <template>
   <nav>
     <ul>
-      <li>
-        <ApplicationNavigationItem
-          v-for="(item, index) in settings"
-          :key="index"
-          :to="`/${item.universe}`"
-          :label="item.universe"
-        />
+      <li v-for="(item, index) in settings" :key="index">
+        <UButton :to="`/${item.universe}`" :label="item.universe" variant="ghost" />
       </li>
     </ul>
   </nav>
