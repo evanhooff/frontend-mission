@@ -52,6 +52,11 @@ export const useUniverseStore = defineStore('universe', {
       return this.pageSettings.push(settings)
     },
     async fetchUniverseItems(universe: string) {
+      const availableItems = this.getItemsPerUniverse(universe)
+      if (availableItems.length > 0) {
+        // if items are already stored, do not fetch again
+        return
+      }
       if (this.getSettingsByUniverse(universe)) {
         const { endpoint, itemsProperty } = this.getSettingsByUniverse(universe) as SettingsCollectionItem
         const { data } = await useFetch(endpoint, {
