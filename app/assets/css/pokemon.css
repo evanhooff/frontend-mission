@@ -2,6 +2,7 @@
 @import '@nuxt/ui';
 @plugin '@tailwindcss/typography';
 
+
 @theme {
   /* Fonts reminiscent of Pokémon UI (clean, readable, game-like) */
   --font-sans: 'Press Start 2P', system-ui, sans-serif; /* pixel/retro style */

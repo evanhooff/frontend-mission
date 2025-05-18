@@ -2,7 +2,7 @@
 @import '@nuxt/ui';
 @plugin '@tailwindcss/typography';
 
-@theme default {
+@theme {
   --font-sans: 'Atkinson Hyperlegible', sans-serif;
   --font-serif: 'Judson', serif;
   --font-mono: 'Input Mono', monospace;
@@ -32,3 +32,6 @@
   --color-purple-950: oklch(15.37% 0.062 5.97);
 }
 
+:root {
+  --application-header-height: 6rem;
+}

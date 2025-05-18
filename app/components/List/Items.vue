@@ -27,7 +27,9 @@ const imagetemplate = settings.value?.imagetemplate || ''
 
         <template #content>
           <div>
-            <Image :item="item" :imagetemplate="imagetemplate" />
+            <ClientOnly>
+              <Image :item="item" :imagetemplate="imagetemplate" />
+            </ClientOnly>
           </div>
         </template>
         <template #footer>

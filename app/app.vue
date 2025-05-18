@@ -18,9 +18,6 @@ if (page && Array.isArray(page.value)) {
 useHead({
   title: appName,
 })
-definePageMeta({
-  middleware: 'theme',
-})
 </script>
 
 <template>
@@ -34,7 +31,3 @@ definePageMeta({
     <ApplicationFooter />
   </UApp>
 </template>
-
-<style>
-@import url('~/assets/css/pokemon.css');
-</style>
