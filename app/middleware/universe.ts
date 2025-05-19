@@ -1,5 +1,10 @@
 import { useUniverseStore } from '~/stores/universe'
 
+function updateColorMode(page: string) {
+  const colorMode = useColorMode()
+  colorMode.preference = page
+}
+
 function updateUniverseStore(page: string) {
   const universeStore = useUniverseStore()
   universeStore.setCurrentUniverse(page)
@@ -9,4 +14,5 @@ function updateUniverseStore(page: string) {
 export default defineNuxtRouteMiddleware((to) => {
   const { page } = to.params
   updateUniverseStore(page)
+  updateColorMode(page)
 })

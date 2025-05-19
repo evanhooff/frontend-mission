@@ -1,9 +1,6 @@
 @import 'tailwindcss' theme(static);
 @import '@nuxt/ui';
 @plugin '@tailwindcss/typography';
-@plugin "daisyui" {
-  themes: light --default, dark --prefersdark, cupcake;
-}
 
 @theme {
   --font-sans: 'Atkinson Hyperlegible', sans-serif;
