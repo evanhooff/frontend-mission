@@ -1,8 +1,4 @@
-@import 'tailwindcss' theme(static);
-@import '@nuxt/ui';
-@plugin '@tailwindcss/typography';
-
-@theme {
+.pokemon {
   /* Fonts reminiscent of Pokémon UI (clean, readable, game-like) */
   --font-sans: 'Press Start 2P', system-ui, sans-serif; /* pixel/retro style */
   --font-serif: 'Lora', serif;
@@ -45,6 +41,3 @@
   --color-ui-shadow: oklch(20% 0.01 230);
 }
 
-:root {
-  --application-header-height: 6rem;
-}

@@ -32,3 +32,6 @@
   --color-purple-950: oklch(15.37% 0.062 5.97);
 }
 
+:root {
+  --application-header-height: 6rem;
+}

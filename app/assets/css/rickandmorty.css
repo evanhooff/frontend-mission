@@ -1,8 +1,4 @@
-@import 'tailwindcss' theme(static);
-@import '@nuxt/ui';
-@plugin '@tailwindcss/typography';
-
-@theme {
+.rickandmorty {
   --font-sans: 'Share Tech Mono', monospace;
   --font-serif: 'Orbitron', sans-serif;
   --font-mono: 'Courier Prime', monospace;
@@ -45,8 +41,4 @@
   --color-cyan-400: oklch(80% 0.18 220);
   --color-cyan-500: oklch(70% 0.22 220);
   --color-cyan-600: oklch(60% 0.25 220);
-}
-
-:root {
-  --application-header-height: 6rem;
 }
