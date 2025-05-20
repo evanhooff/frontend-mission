@@ -5,7 +5,7 @@
   --font-mono: 'Fira Mono', monospace;
 
   /* Neutral gray-like shades with soft blue/purple hues for a game UI feel */
-  --color-gray-50: oklch(97.5% 0.005 230);  /* near-white with a cool tint */
+  --color-gray-50: oklch(97.5% 0.005 230); /* near-white with a cool tint */
   --color-gray-100: oklch(93.5% 0.007 230);
   --color-gray-200: oklch(86% 0.01 230);
   --color-gray-300: oklch(76% 0.014 230);
@@ -17,9 +17,9 @@
   --color-gray-900: oklch(15% 0.008 230);
 
   /* Pokémon-themed "primary" color palette - inspired by Pokéball & Pikachu */
-  --color-red-500: oklch(62% 0.25 27);    /* Pokéball red */
+  --color-red-500: oklch(62% 0.25 27); /* Pokéball red */
   --color-yellow-400: oklch(90% 0.18 100); /* Pikachu yellow */
-  --color-blue-500: oklch(62% 0.25 250);  /* Sapphire blue */
+  --color-blue-500: oklch(62% 0.25 250); /* Sapphire blue */
   --color-green-500: oklch(62% 0.25 145); /* Bulbasaur green */
 
   /* Main accent: saturated red for buttons or highlights */

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { VariantProps } from 'tailwind-variants'
 import { ClientOnly } from '#components'
 import { useUniverseStore } from '@/stores/universe'
 import { tv } from 'tailwind-variants'
