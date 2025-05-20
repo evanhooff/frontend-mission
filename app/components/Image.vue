@@ -10,9 +10,26 @@ const imageTemplate = computed(() => {
 </script>
 
 <template>
-  <ClientOnly>
-    <div class="max-h-10 max-w-10 aspect-ratio-1/1">
-      <img class="contain w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
-    </div>
-  </ClientOnly>
+  <NuxtImg
+    v-slot="{ src, isLoaded, imgAttrs }"
+    :src="imageTemplate"
+    alt="image"
+    width="400"
+    height="400"
+    :custom="true"
+  >
+    <!-- Show the actual image when loaded -->
+    <img
+      v-if="isLoaded"
+      v-bind="imgAttrs"
+      :src="src"
+    >
+
+    <!-- Show a placeholder while loading -->
+    <img
+      v-else
+      src="https://placehold.co/400x400"
+      alt="placeholder"
+    >
+  </NuxtImg>
 </template>

@@ -7,19 +7,13 @@
 
 <!-- Make 2 variants, horizontal and vertical -->
 <template>
-  <UCard>
+  <UCard variant="subtle" :ui="{ header: 'p-0 py-2 sm:p-0 sm:py-2', footer: 'p-0 sm:p-0 max-h-[2rem]', body: 'p-0 sm:p-0' }">
     <template #header>
-      <slot name="header">
-        <!-- <Placeholder class="h-8" /> -->
-      </slot>
+      <slot name="header" />
     </template>
-    <slot name="content">
-      <!-- <Placeholder class="h-32" /> -->
-    </slot>
+    <slot name="content" />
     <template #footer>
-      <slot name="footer">
-        <!-- <Placeholder class="h-8" /> -->
-      </slot>
+      <slot name="footer" />
     </template>
   </UCard>
 </template>

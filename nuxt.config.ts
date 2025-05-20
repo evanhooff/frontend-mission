@@ -9,13 +9,18 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     '@nuxt/fonts',
+    '@nuxt/image',
   ],
 
   devtools: {
     enabled: true,
   },
 
-  css: ['~/assets/css/main.css', '~/assets/css/pokemon.css', '~/assets/css/rickandmorty.css'],
+  css: [
+    '~/assets/css/pokemon.css',
+    '~/assets/css/rickandmorty.css',
+    '~/assets/css/main.css',
+  ],
 
   colorMode: {
     // Cast to `any` to allow 'modes' property

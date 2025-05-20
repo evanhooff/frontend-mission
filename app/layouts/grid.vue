@@ -7,14 +7,8 @@ const universe = universeStore.getCurrentUniverse || ''
 
 <template>
   <div>
-    <UButton @click="setPageLayout('grid')">
-      Grid
-    </UButton>
-    <UButton @click="setPageLayout('list')">
-      List
-    </UButton>
     <ClientOnly><p>Custom layout for grid view of {{ universe }}</p></ClientOnly>
-    <div class="[&_data-list=true]:grid">
+    <div class="">
       <slot />
     </div>
   </div>
