@@ -15,7 +15,22 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css', '~/assets/css/pokemon.css', '~/assets/css/rickandmorty.css'],
+
+  colorMode: {
+    // Cast to `any` to allow 'modes' property
+    ...({
+      preference: 'system',
+      fallback: 'light',
+      classSuffix: '',
+      modes: {
+        light: '',
+        dark: '',
+        pokemon: 'pokemon',
+        rickandmorty: 'rickandmorty',
+      },
+    } as any),
+  },
 
   future: {
     compatibilityVersion: 4,

@@ -2,7 +2,7 @@
 @import '@nuxt/ui';
 @plugin '@tailwindcss/typography';
 
-@theme {
+@theme default {
   --font-sans: 'Atkinson Hyperlegible', sans-serif;
   --font-serif: 'Judson', serif;
   --font-mono: 'Input Mono', monospace;

@@ -6,7 +6,7 @@
     "lib": ["es2020"],
     "module": "es2022",
     "moduleResolution": "node",
-    "types": ["node"],
+    "types": ["node", "@nuxt/content"],
     "strict": true,
     "outDir": "dist",
     "preserveConstEnums": true,

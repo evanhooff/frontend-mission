@@ -1,16 +1,11 @@
 <script setup lang="ts">
-const props = defineProps<{
-  item: {
-    [key: string]: any
-  }
-  imagetemplate: string | undefined
-}>()
+import type { imageProps } from '~/composables/useImageTemplate'
+import { useImageTemplate } from '~/composables/useImageTemplate'
+
+const props = defineProps<imageProps>()
 
 const imageTemplate = computed(() => {
-  // regex is checking on ${} in the template and searching for it in the item
-  return props.imagetemplate?.replace(/\$\{(.*?)\}/g, (_, match) => {
-    return props.item?.[match] ?? ''
-  })
+  return useImageTemplate({ item: props.item, imagetemplate: props.imagetemplate })
 })
 </script>
 

@@ -1,0 +1,8 @@
+{
+  "universe": "pokemon",
+  "css_colormode": "pokemon",
+  "endpoint": "https://pokeapi.co/api/v2/pokemon",
+  "itemsProperty": "results",
+  "NUXT_ENV_API_ENDPOINT": "NUXT_ENV_API_ENDPOINT_POKEMON",
+  "imagetemplate": "https://img.pokemondb.net/artwork/${name}.jpg"
+}

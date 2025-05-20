@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useUniverseStore } from '@/stores/universe'
+// import { useUniverseStore } from '@/stores/universe'
 
-const universeStore = useUniverseStore()
-const universe = universeStore.getCurrentUniverse || ''
+// const universeStore = useUniverseStore()
+// const universe = universeStore.getCurrentUniverse || ''
 </script>
 
 <!-- Make 2 variants, horizontal and vertical -->

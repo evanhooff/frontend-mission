@@ -1,0 +1,42 @@
+.pokemon {
+  /* Fonts reminiscent of Pokémon UI (clean, readable, game-like) */
+  --font-sans: 'Press Start 2P', system-ui, sans-serif; /* pixel/retro style */
+  --font-serif: 'Lora', serif;
+  --font-mono: 'Fira Mono', monospace;
+
+  /* Neutral gray-like shades with soft blue/purple hues for a game UI feel */
+  --color-gray-50: oklch(97.5% 0.005 230);  /* near-white with a cool tint */
+  --color-gray-100: oklch(93.5% 0.007 230);
+  --color-gray-200: oklch(86% 0.01 230);
+  --color-gray-300: oklch(76% 0.014 230);
+  --color-gray-400: oklch(65% 0.017 230);
+  --color-gray-500: oklch(55% 0.02 230);
+  --color-gray-600: oklch(45% 0.018 230);
+  --color-gray-700: oklch(35% 0.015 230);
+  --color-gray-800: oklch(25% 0.01 230);
+  --color-gray-900: oklch(15% 0.008 230);
+
+  /* Pokémon-themed "primary" color palette - inspired by Pokéball & Pikachu */
+  --color-red-500: oklch(62% 0.25 27);    /* Pokéball red */
+  --color-yellow-400: oklch(90% 0.18 100); /* Pikachu yellow */
+  --color-blue-500: oklch(62% 0.25 250);  /* Sapphire blue */
+  --color-green-500: oklch(62% 0.25 145); /* Bulbasaur green */
+
+  /* Main accent: saturated red for buttons or highlights */
+  --color-primary-50: oklch(96% 0.04 27);
+  --color-primary-100: oklch(91% 0.07 27);
+  --color-primary-200: oklch(82% 0.12 27);
+  --color-primary-300: oklch(72% 0.18 27);
+  --color-primary-400: oklch(66% 0.22 27);
+  --color-primary-500: oklch(60% 0.26 27); /* Pokéball Red */
+  --color-primary-600: oklch(54% 0.25 27);
+  --color-primary-700: oklch(42% 0.22 27);
+  --color-primary-800: oklch(32% 0.18 27);
+  --color-primary-900: oklch(22% 0.12 27);
+
+  /* Optional: subtle electric blue for links or highlights */
+  --color-accent-500: oklch(68% 0.25 270); /* Electric/ice-style blue */
+
+  /* Optional: Shadow or UI border color */
+  --color-ui-shadow: oklch(20% 0.01 230);
+}

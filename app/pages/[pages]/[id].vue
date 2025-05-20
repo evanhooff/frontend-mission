@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const { path, params } = useRoute()
-console.warn(path, params)
-const universe = path
+import { useUniverseStore } from '~/stores/universe'
+
+const store = useUniverseStore()
+const { getCurrentUniverse: universe } = storeToRefs(store)
 </script>
 
 <template>

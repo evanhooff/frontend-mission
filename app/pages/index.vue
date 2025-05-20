@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { PageSection } from '#components'
+</script>
+
 <template>
   <div class="py-8">
     <UContainer>
@@ -7,14 +11,8 @@
         </h1>
       </header>
       <div>
-        <LayoutPageSection title="Rick and Morty API response">
-          <ExampleApiResponseRickAndMorty />
-        </LayoutPageSection>
-        <LayoutPageSection title="Pokemon API response">
-          <ExampleApiResponsePokemon />
-        </LayoutPageSection>
-        <ExampleLordOfTheRings />
-        <ExampleNature />
+        <PageSection title="Rick and Morty API response" />
+        <PageSection title="Pokemon API response" />
       </div>
     </UContainer>
   </div>

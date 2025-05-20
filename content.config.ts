@@ -2,18 +2,27 @@ import { defineCollection, defineContentConfig, z } from '@nuxt/content'
 
 export default defineContentConfig({
   collections: {
-    content: defineCollection({
-      source: '**/*.json',
+    universes: defineCollection({
+      source: 'universes/*.json',
       type: 'page',
       schema: z.object({
+        universe: z.string(),
         title: z.string(),
         label: z.string(),
-        universe: z.string(),
-        to: z.string(),
         description: z.string(),
-        imagetemplate: z.string().optional(),
-        endpoint: z.string().optional(),
-        ENV: z.string().optional(),
+      }),
+    }),
+
+    settings: defineCollection({
+      source: 'settings/*.json',
+      type: 'data',
+      schema: z.object({
+        universe: z.string(),
+        css_colormode: z.string(),
+        endpoint: z.string(),
+        itemsProperty: z.string(),
+        NUXT_ENV_API_ENDPOINT: z.string(),
+        imagetemplate: z.string(),
       }),
     }),
 
