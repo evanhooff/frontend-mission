@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// import type { pageLayoutProps } from './Items.vue'
-// const props = defineProps<pageLayoutProps>()
-
 const props = defineProps<{
   variant: 'list' | 'grid' | undefined
 }>()

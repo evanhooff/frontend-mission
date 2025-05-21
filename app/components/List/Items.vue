@@ -39,6 +39,7 @@ const pageLayout = useLocalStorage<pageLayoutProps['variant']>('pageLayout', und
 
 function changePageLayout(layout: 'grid' | 'list') {
   pageLayout.value = layout
+  setPageLayout(layout)
 }
 
 const listVariant = computed(() =>
@@ -50,10 +51,10 @@ const listVariant = computed(() =>
 
 <template>
   <div>
-    <UButton @click="setPageLayout('grid'); changePageLayout('grid')">
+    <UButton @click="changePageLayout('grid')">
       Grid
     </UButton>
-    <UButton @click="setPageLayout('list'); changePageLayout('list')">
+    <UButton @click="changePageLayout('list')">
       List
     </UButton>
     <ClientOnly>
