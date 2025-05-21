@@ -5,8 +5,7 @@ const pageLayout = ref(useLayoutSwitcher) || 'grid'
 </script>
 
 <template>
-  <div v-if="pageLayout">
-    {{ pageLayout }}
+  <div>
     <UButton @click="pageLayout = 'grid'">
       Grid
     </UButton>
