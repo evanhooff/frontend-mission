@@ -10,27 +10,27 @@ const imageTemplate = computed(() => {
 </script>
 
 <template>
-  <ClientOnly>
-    <!-- <NuxtImg
-      v-slot="{ src, isLoaded, imgAttrs }"
-      :src="imageTemplate"
-      alt="image"
-      width="400"
-      height="400"
-      :custom="true"
+  <!-- <ClientOnly> -->
+  <NuxtImg
+    v-slot="{ src, isLoaded, imgAttrs }"
+    :src="imageTemplate"
+    alt="image"
+    width="400"
+    height="400"
+    :custom="true"
+  >
+    <img
+      v-if="isLoaded"
+      v-bind="imgAttrs"
+      :src="src"
     >
-      <img
-        v-if="isLoaded"
-        v-bind="imgAttrs"
-        :src="src"
-      >
 
-      <img
-        v-else
-        src="https://placehold.co/400x400"
-        alt="placeholder"
-      >
-    </NuxtImg> -->
-    <img class="contain w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
-  </ClientOnly>
+    <img
+      v-else
+      src="https://placehold.co/400x400"
+      alt="placeholder"
+    >
+  </NuxtImg>
+  <!-- <img class="contain w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
+  </ClientOnly> -->
 </template>

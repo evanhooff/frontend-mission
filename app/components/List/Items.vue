@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { VariantProps } from 'tailwind-variants'
 import { ClientOnly } from '#components'
 import { useUniverseStore } from '@/stores/universe'
 import { tv } from 'tailwind-variants'
@@ -24,14 +25,17 @@ const listStyle = tv({
         content: 'w-full',
       },
       grid: {
-        container: 'grid grid-cols-4 gap-4 text-center',
+        container: 'grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-4 text-center',
         content: 'flex-col flex-wrap',
       },
     },
   },
 })
 
-const pageLayout = useLocalStorage<'grid' | 'list'>('pageLayout', 'list')
+// export type pageLayoutProps = VariantProps<typeof listStyle>
+type pageLayoutProps = VariantProps<typeof listStyle>
+
+const pageLayout = useLocalStorage<pageLayoutProps['variant']>('pageLayout', undefined)
 
 function changePageLayout(layout: 'grid' | 'list') {
   pageLayout.value = layout
@@ -49,15 +53,16 @@ const listVariant = computed(() =>
     <UButton @click="setPageLayout('grid'); changePageLayout('grid')">
       Grid
     </UButton>
-    <UButton @click="() => { setPageLayout('list'); changePageLayout('list') }">
+    <UButton @click="setPageLayout('list'); changePageLayout('list')">
       List
     </UButton>
-    <div data-items="true" :class="listVariant.container()">
-      <ClientOnly>
+    <ClientOnly>
+      <div data-items="true" :class="listVariant.container()">
         <ListCard
           v-for="item in items"
           :key="item.name"
           :class="listVariant.content()"
+          :variant="pageLayout"
         >
           <template #header>
             <span>
@@ -72,14 +77,13 @@ const listVariant = computed(() =>
             <UButton no-prefetch :to="`/${universe}/${item.name}`" :label="item.name" variant="ghost" />
           </template>
         </ListCard>
-
-        <template #fallback>
-          <!-- TODO: define skeleton -->
-          <div class="text-center">
-            loading ...
-          </div>
-        </template>
-      </ClientOnly>
-    </div>
+      </div>
+      <template #fallback>
+        <!-- TODO: define skeleton -->
+        <div class="text-center">
+          loading ...
+        </div>
+      </template>
+    </ClientOnly>
   </div>
 </template>
