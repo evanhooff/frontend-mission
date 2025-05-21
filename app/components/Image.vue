@@ -11,7 +11,7 @@ const imageTemplate = computed(() => {
 
 <template>
   <!-- <ClientOnly> -->
-  <Suspense>
+  <ClientOnly>
     <template #default>
       <NuxtImg
         v-slot="{ src, isLoaded, imgAttrs }"
@@ -39,7 +39,7 @@ const imageTemplate = computed(() => {
         loading ...
       </div>
     </template>
-  </Suspense>
+  </ClientOnly>
 
   <!-- <img class="contain w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
   </ClientOnly> -->
