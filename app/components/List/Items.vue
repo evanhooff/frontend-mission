@@ -3,6 +3,7 @@ import type { VariantProps } from 'tailwind-variants'
 import { ClientOnly } from '#components'
 import { useUniverseStore } from '@/stores/universe'
 import { tv } from 'tailwind-variants'
+import { useLayoutSwitcher } from '~/composables/useLayoutSwitcher'
 
 const store = useUniverseStore()
 const { getCurrentUniverse: universe, getItemsPerUniverse: getItems, getCurrentUniverseSettings: settings } = storeToRefs(store)
@@ -11,11 +12,9 @@ const items = getItems.value(universe.value)
 
 const imagetemplate = settings.value?.imagetemplate || ''
 
-// nice inspiration for pokemon: https://nl.pinterest.com/pin/81416705759334276/
-
 const listStyle = tv({
   slots: {
-    container: '',
+    container: 'block w-full',
     content: 'flex w-full gap-4 place-content-between',
   },
   variants: {
@@ -25,59 +24,56 @@ const listStyle = tv({
         content: 'w-full',
       },
       grid: {
-        container: 'grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-4 text-center',
+        container: 'grid grid-cols-3 md:grid-cols-4 gap-4 text-center',
         content: 'flex-col flex-wrap',
       },
     },
   },
 })
 
-// export type pageLayoutProps = VariantProps<typeof listStyle>
-type pageLayoutProps = VariantProps<typeof listStyle>
+export type pageLayoutProps = VariantProps<typeof listStyle>
 
-const pageLayout = useLocalStorage<pageLayoutProps['variant']>('pageLayout', undefined)
-
-function changePageLayout(layout: 'grid' | 'list') {
-  pageLayout.value = layout
-  setPageLayout(layout)
-}
+const layoutVariant = ref(useLayoutSwitcher) || 'grid'
 
 const listVariant = computed(() =>
   listStyle({
-    variant: pageLayout.value,
+    variant: layoutVariant.value,
   }),
+)
+
+const cardVariant = computed(() =>
+  ref(layoutVariant).value === 'list' ? 'subtle' : 'solid',
 )
 </script>
 
 <template>
   <div>
-    <UButton @click="changePageLayout('grid')">
-      Grid
-    </UButton>
-    <UButton @click="changePageLayout('list')">
-      List
-    </UButton>
     <ClientOnly>
       <div data-items="true" :class="listVariant.container()">
-        <ListCard
-          v-for="item in items"
-          :key="item.name"
+        <UCard
+          v-for="item in items" :key="item.name"
+          :variant="cardVariant"
+          :ui="{ header: 'p-0 py-2 sm:p-0 sm:py-2', footer: 'p-0 sm:p-0 max-h-[2rem]', body: 'p-0 sm:p-0 w-full' }"
           :class="listVariant.content()"
-          :variant="pageLayout"
         >
           <template #header>
             <span>
               {{ item.name }}
             </span>
           </template>
+          <div class="w-full">
+            <ListCardContent v-if="layoutVariant === 'list'" :item="item">
+              <Image :item="item" :imagetemplate="imagetemplate" />
+            </ListCardContent>
+            <GridCardContent v-if="layoutVariant === 'grid'" :item="item">
+              <Image :item="item" :imagetemplate="imagetemplate" />
+            </GridCardContent>
+          </div>
 
-          <template #content>
-            <Image :item="item" :imagetemplate="imagetemplate" />
-          </template>
           <template #footer>
             <UButton no-prefetch :to="`/${universe}/${item.name}`" :label="item.name" variant="ghost" />
           </template>
-        </ListCard>
+        </UCard>
       </div>
       <template #fallback>
         <!-- TODO: define skeleton -->

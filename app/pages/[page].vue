@@ -21,24 +21,25 @@ definePageMeta({
 </script>
 
 <template>
-  <Suspense>
+  <UContainer>
     <ApplicationBaseLayout>
       <template #header>
         <h1>{{ details?.title || undefined }}</h1>
       </template>
       <template #main>
         <PageSection :title="`List of ${details?.label}`">
-          <ListItems />
+          <Suspense>
+            <ListItems />
+            <!-- loading state via #fallback slot -->
+            <template #fallback>
+              Loading...
+            </template>
+          </Suspense>
         </PageSection>
       </template>
       <template #footer>
         <LayoutPagination />
       </template>
     </ApplicationBaseLayout>
-
-    <!-- loading state via #fallback slot -->
-    <template #fallback>
-      Loading...
-    </template>
-  </Suspense>
+  </UContainer>
 </template>

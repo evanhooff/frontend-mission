@@ -7,7 +7,10 @@ const universe = universeStore.getCurrentUniverse || ''
 
 <template>
   <div>
-    <ClientOnly><p>Custom layout for list view of {{ universe }}</p></ClientOnly>
+    <ClientOnly>
+      <p>Custom layout for list view of {{ universe }}</p>
+      <LayoutSwitcher />
+    </ClientOnly>
     <div class="">
       <slot />
     </div>

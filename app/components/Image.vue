@@ -12,7 +12,16 @@ const imageTemplate = computed(() => {
 <template>
   <ClientOnly>
     <template #default>
-      <img class="contain w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
+      <img class="object-fill w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
+      <!-- <NuxtImg
+        provider="netlify"
+        :src="imageTemplate || ''"
+        height="400"
+        width="600"
+        fit="cover"
+        quality="80"
+        :modifiers="{ position: 'center' }"
+      /> -->
     </template>
     <template #fallback>
       <div class="text-center">
