@@ -7,13 +7,8 @@ const universe = universeStore.getCurrentUniverse || ''
 </script>
 
 <template>
-  <div>
-    <ClientOnly>
-      <p>Custom layout for grid view of {{ universe }}</p>
-      <LayoutSwitcher />
-    </ClientOnly>
-    <div class="">
-      <slot />
-    </div>
+  <div :class="`grid-layout-${universe}`">
+    <!-- room for site-wide content, like notifications or modals -->
+    <slot />
   </div>
 </template>

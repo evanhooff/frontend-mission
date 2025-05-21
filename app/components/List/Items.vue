@@ -74,6 +74,8 @@ const cardVariant = computed(() =>
             <UButton no-prefetch :to="`/${universe}/${item.name}`" :label="item.name" variant="ghost" />
           </template>
         </UCard>
+
+        <LayoutPagination />
       </div>
       <template #fallback>
         <!-- TODO: define skeleton -->

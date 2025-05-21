@@ -1,6 +1,8 @@
 <script setup lang="ts">
 // import { getCurrentPage } from '@/helpers/pagination.helper'
+import { LayoutSwitcher } from '#components'
 import { useUniverseStore } from '@/stores/universe'
+import { useLayoutSwitcher } from '~/composables/useLayoutSwitcher'
 
 const universeStore = useUniverseStore()
 const universe = universeStore.getCurrentUniverse || ''
@@ -22,24 +24,22 @@ definePageMeta({
 
 <template>
   <UContainer>
-    <ApplicationBaseLayout>
-      <template #header>
-        <h1>{{ details?.title || undefined }}</h1>
-      </template>
-      <template #main>
-        <PageSection :title="`List of ${details?.label}`">
-          <Suspense>
-            <ListItems />
-            <!-- loading state via #fallback slot -->
-            <template #fallback>
-              Loading...
-            </template>
-          </Suspense>
-        </PageSection>
-      </template>
-      <template #footer>
-        <LayoutPagination />
-      </template>
-    </ApplicationBaseLayout>
+    <header>
+      <h1 class="text-2xl font-bold mb-4">
+        {{ details?.title }}
+      </h1>
+      <LayoutSwitcher />
+    </header>
+    <main>
+      <PageSection :title="`List of ${details?.label}`">
+        <Suspense>
+          <ListItems />
+          <!-- loading state via #fallback slot -->
+          <template #fallback>
+            Loading...
+          </template>
+        </Suspense>
+      </PageSection>
+    </main>
   </UContainer>
 </template>
