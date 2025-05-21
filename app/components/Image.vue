@@ -10,10 +10,9 @@ const imageTemplate = computed(() => {
 </script>
 
 <template>
-  <!-- <ClientOnly> -->
   <ClientOnly>
     <template #default>
-      <NuxtImg
+      <!-- <NuxtImg
         v-slot="{ src, isLoaded, imgAttrs }"
         :src="imageTemplate || ''"
         alt="image"
@@ -32,7 +31,8 @@ const imageTemplate = computed(() => {
           src="https://placehold.co/400x400"
           alt="placeholder"
         >
-      </NuxtImg>
+      </NuxtImg> -->
+      <img class="contain w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
     </template>
     <template #fallback>
       <div class="text-center">
@@ -40,7 +40,4 @@ const imageTemplate = computed(() => {
       </div>
     </template>
   </ClientOnly>
-
-  <!-- <img class="contain w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
-  </ClientOnly> -->
 </template>
