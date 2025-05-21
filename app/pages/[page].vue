@@ -17,7 +17,7 @@ const { data: details } = await useAsyncData(universe, () => {
 
 // default layout, can be overridden by the page
 definePageMeta({
-  layout: 'list',
+  layout: 'list', // update this to use the composable
   middleware: 'universe',
 })
 </script>

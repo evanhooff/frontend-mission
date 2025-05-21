@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { VariantProps } from 'tailwind-variants'
-import { ClientOnly } from '#components'
 import { useUniverseStore } from '@/stores/universe'
 import { tv } from 'tailwind-variants'
-import { useLayoutSwitcher } from '~/composables/useLayoutSwitcher'
 
 const store = useUniverseStore()
 const { getCurrentUniverse: universe, getItemsPerUniverse: getItems, getCurrentUniverseSettings: settings } = storeToRefs(store)
@@ -40,71 +38,38 @@ const listVariant = computed(() =>
     variant: layoutVariant.value,
   }),
 )
-
-const cardVariant = computed(() =>
-  ref(layoutVariant).value === 'list' ? 'subtle' : 'solid',
-)
 </script>
 
 <template>
   <div>
-    <Suspense>
-      <div data-items="true" :class="listVariant.container()">
-        <div
-          v-if="layoutVariant === 'list'"
-        >
-          List
-        </div>
-        <UCard
+    <!-- TODO: set Suspense back with proper skeleton -->
+    <!-- TODO: Use a composable to render as grid card or list card -->
+    <ClientOnly>
+      <div
+        v-if="layoutVariant === 'list'" data-items="true"
+        :class="listVariant.container()"
+      >
+        <ListCard
           v-for="item in items"
-          v-else
           :key="item.name"
-          :variant="cardVariant"
-          :ui="{ header: 'p-0 py-2 sm:p-0 sm:py-2', footer: 'p-0 sm:p-0 max-h-[2rem]', body: 'p-0 sm:p-0 w-full' }"
           :class="listVariant.content()"
-        >
-          <template #header>
-            <span>
-              {{ item.name }}
-            </span>
-          </template>
-          <div class="w-full">
-            <Image :item="item" :imagetemplate="imagetemplate" />
-          </div>
-
-          <template #footer>
-            <UButton no-prefetch :to="`/${universe}/${item.name}`" :label="item.name" variant="ghost" />
-          </template>
-        </UCard>
+          :universe="universe"
+          :item="item"
+          :imagetemplate="imagetemplate"
+        />
+      </div>
+      <div v-else data-items="true" :class="listVariant.container()">
+        <GridCard
+          v-for="item in items"
+          :key="item.name"
+          :class="listVariant.content()"
+          :universe="universe"
+          :item="item"
+          :imagetemplate="imagetemplate"
+        />
 
         <LayoutPagination />
       </div>
-      <template #fallback>
-        <div>
-          <UCard
-            v-for="item in items"
-            :key="item.id"
-            :variant="cardVariant"
-            :ui="{ header: 'p-0 py-2 sm:p-0 sm:py-2', footer: 'p-0 sm:p-0 max-h-[2rem]', body: 'p-0 sm:p-0 w-full' }"
-            :class="listVariant.content()"
-          >
-            <template #header>
-              <span>
-                NameSkeleton
-              </span>
-            </template>
-            <div class="w-full">
-              imageSkeleton
-            </div>
-
-            <template #footer>
-              buttonSkeleton
-            </template>
-          </UCard>
-
-          <LayoutPagination />
-        </div>
-      </template>
-    </Suspense>
+    </ClientOnly>
   </div>
 </template>
