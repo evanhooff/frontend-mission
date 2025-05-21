@@ -6,10 +6,10 @@ const pageLayout = ref(useLayoutSwitcher) || 'grid'
 
 <template>
   <div>
-    <UButton @click="pageLayout = 'grid'">
+    <UButton :active="pageLayout === 'grid'" @click="pageLayout = 'grid'">
       Grid
     </UButton>
-    <UButton @click="pageLayout = 'list'">
+    <UButton :active="pageLayout === 'list'" @click="pageLayout = 'list'">
       List
     </UButton>
   </div>

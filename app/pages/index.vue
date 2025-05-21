@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PageSection } from '#components'
 </script>
 
 <template>
@@ -9,9 +8,5 @@ import { PageSection } from '#components'
         Welcome to the home page! This is where you can start building your app.
       </h1>
     </header>
-    <div>
-      <PageSection title="Rick and Morty API response" />
-      <PageSection title="Pokemon API response" />
-    </div>
   </UContainer>
 </template>

@@ -22,7 +22,7 @@ const props = defineProps<{
     </div>
 
     <template #footer>
-      <UButton no-prefetch :to="`/${universe}/${props.item.id}`" :label="props.item.name" variant="ghost" />
+      <UButton no-prefetch :to="{ path: `/${universe}/${props.item.id || props.item.name}`, query: { url: props.item.url } }" :label="props.item.name" variant="ghost" />
     </template>
   </UCard>
 </template>

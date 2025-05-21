@@ -15,6 +15,7 @@ const props = defineProps<{
       {{ item.name }}
     </span>
 
-    <UButton no-prefetch :to="`/${universe}/${props.item.id}`" :label="props.item.name" variant="ghost" />
+    <!-- TODO: make the link generic -->
+    <UButton no-prefetch :to="{ path: `/${universe}/${props.item.id || props.item.name}`, query: { url: props.item.url } }" :label="props.item.name" variant="ghost" />
   </div>
 </template>

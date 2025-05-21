@@ -11,10 +11,9 @@ export const useUniverseStore = defineStore('universe', {
     itemsPerUniverse: {} as ItemsPerUniverse,
     currentUniverse: '' as string,
     currentUniverseSettings: {} as SettingsCollectionItem,
+    currentCharacterDetails: {} as any,
   }),
   hydrate(state) {
-    // in this case we can completely ignore the initial state since we
-    // want to read the value from the browser
     state.currentUniverse = ''
   },
   getters: {
@@ -23,6 +22,9 @@ export const useUniverseStore = defineStore('universe', {
     },
     getCurrentUniverseSettings: (state): SettingsCollectionItem => {
       return state.currentUniverseSettings || {}
+    },
+    getCurrentCharacterDetails: (state): any => {
+      return state.currentCharacterDetails || {}
     },
     getSettingsByUniverse: (state) => {
       return (universe: string): SettingsCollectionItem | undefined => {
@@ -65,6 +67,22 @@ export const useUniverseStore = defineStore('universe', {
           },
         })
         this.storeItemsPerUniverse(this.currentUniverse, data, itemsProperty)
+      }
+    },
+    async fetchCharacterDetails(url: any) {
+      console.warn('fetchCharacterDetails', url)
+      const { data } = await useFetch(url, {
+        onResponseError() {
+          throw new Error('Error fetching character details')
+        },
+      })
+      // TODO: make seperate store for storing character details
+      this.currentCharacterDetails = {
+        name: data.value.name,
+        image: data.value.image,
+        universe: {
+          ...data.value,
+        },
       }
     },
     async storeItemsPerUniverse(universe: string, data: any, itemsProperty: string) {
