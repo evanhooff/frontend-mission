@@ -3,7 +3,7 @@
   // https://www.typescriptlang.org/tsconfig#compilerOptions
   "compilerOptions": {
     "target": "es2022",
-    "lib": ["es2020"],
+    "lib": ["es2020", "dom"],
     "module": "es2022",
     "moduleResolution": "node",
     "types": ["node", "@nuxt/content"],

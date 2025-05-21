@@ -70,6 +70,10 @@ export default defineNuxtConfig({
   icon: {
     provider: 'iconify',
   },
+
+  image: {
+    provider: 'netlify',
+  },
   pinia: {
     storesDirs: ['./stores/**'],
   },

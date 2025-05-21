@@ -9,3 +9,9 @@ NODE_VERSION = "20"
 from = "/*"
 to = "/index.html"
 status = 200
+
+[images]
+remote_images = [
+  "https:\\/\\/img.pokemondb.net/artwork/.*",
+  "https:\\/\\/rickandmortyapi.com/api/.*"
+]
