@@ -33,7 +33,9 @@ definePageMeta({
     <main>
       <PageSection :title="`List of ${details?.label}`">
         <Suspense>
-          <ListItems />
+          <div>
+            <ListItems />
+          </div>
           <!-- loading state via #fallback slot -->
           <template #fallback>
             Loading...

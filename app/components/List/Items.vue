@@ -8,7 +8,7 @@ import { useLayoutSwitcher } from '~/composables/useLayoutSwitcher'
 const store = useUniverseStore()
 const { getCurrentUniverse: universe, getItemsPerUniverse: getItems, getCurrentUniverseSettings: settings } = storeToRefs(store)
 
-const items = getItems.value(universe.value)
+const items = getItems.value(universe.value) || Array.from({ length: 20 }, index => ({ id: index }))
 
 const imagetemplate = settings.value?.imagetemplate || ''
 
@@ -48,10 +48,17 @@ const cardVariant = computed(() =>
 
 <template>
   <div>
-    <ClientOnly>
+    <Suspense>
       <div data-items="true" :class="listVariant.container()">
+        <div
+          v-if="layoutVariant === 'list'"
+        >
+          List
+        </div>
         <UCard
-          v-for="item in items" :key="item.name"
+          v-for="item in items"
+          v-else
+          :key="item.name"
           :variant="cardVariant"
           :ui="{ header: 'p-0 py-2 sm:p-0 sm:py-2', footer: 'p-0 sm:p-0 max-h-[2rem]', body: 'p-0 sm:p-0 w-full' }"
           :class="listVariant.content()"
@@ -62,12 +69,7 @@ const cardVariant = computed(() =>
             </span>
           </template>
           <div class="w-full">
-            <ListCardContent v-if="layoutVariant === 'list'" :item="item">
-              <Image :item="item" :imagetemplate="imagetemplate" />
-            </ListCardContent>
-            <GridCardContent v-if="layoutVariant === 'grid'" :item="item">
-              <Image :item="item" :imagetemplate="imagetemplate" />
-            </GridCardContent>
+            <Image :item="item" :imagetemplate="imagetemplate" />
           </div>
 
           <template #footer>
@@ -78,11 +80,31 @@ const cardVariant = computed(() =>
         <LayoutPagination />
       </div>
       <template #fallback>
-        <!-- TODO: define skeleton -->
-        <div class="text-center">
-          loading ...
+        <div>
+          <UCard
+            v-for="item in items"
+            :key="item.id"
+            :variant="cardVariant"
+            :ui="{ header: 'p-0 py-2 sm:p-0 sm:py-2', footer: 'p-0 sm:p-0 max-h-[2rem]', body: 'p-0 sm:p-0 w-full' }"
+            :class="listVariant.content()"
+          >
+            <template #header>
+              <span>
+                NameSkeleton
+              </span>
+            </template>
+            <div class="w-full">
+              imageSkeleton
+            </div>
+
+            <template #footer>
+              buttonSkeleton
+            </template>
+          </UCard>
+
+          <LayoutPagination />
         </div>
       </template>
-    </ClientOnly>
+    </Suspense>
   </div>
 </template>
