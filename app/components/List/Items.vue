@@ -19,7 +19,7 @@ const listStyle = tv({
     variant: {
       list: {
         container: 'flex flex-col flex-wrap w-full gap-4',
-        content: 'w-full',
+        content: 'w-full  text-left',
       },
       grid: {
         container: 'grid grid-cols-3 md:grid-cols-4 gap-4 text-center',

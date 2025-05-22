@@ -12,8 +12,18 @@ definePageMeta({
 
 <template>
   <Suspense>
-    <div>
-      <h1>{{ character.name }}</h1>
+    <div class="my-4">
+      <nav class="mb-4">
+        <button class="text-blue-500 hover:underline" @click="$router.back()">
+          ← Back to
+          {{ universe }}
+        </button>
+        <span class="mx-2">/</span>
+        <span class="text-gray-500">{{ character.name }}</span>
+      </nav>
+      <h1 class="text-2xl font-bold mb-4">
+        {{ character.name }}
+      </h1>
       <div class="h-[20rem]">
         <!-- TODO: find out why object-contain object-center not working -->
         <img class="" :src="character.image || ''" alt="Image" :loading="character.name">
@@ -21,7 +31,7 @@ definePageMeta({
 
       <main>
         <PageSection :title="`Details for ${character.name}`">
-          <div v-for="(detail, index) in character.universe" :key="index">
+          <div v-for="(detail, index) in character.universe" :key="index" class="font-serif">
             <strong>{{ index }}:</strong> {{ detail }}
           </div>
         </PageSection>
