@@ -7,14 +7,15 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="flex items-center justify-center w-full">
-    <div>
+  <div class="flex items-start justify-center w-full border border-green-300 align-baseline-safe p-2">
+    <div class="mr-2">
       <ListAvatar :item="props.item" :imagetemplate="props.imagetemplate" />
     </div>
-    <span>
+    <div class="grow my-1">
       {{ item.name }}
-    </span>
+    </div>
 
-    <UButton no-prefetch :to="`/${universe}/${props.item.id}`" :label="props.item.name" variant="ghost" />
+    <!-- TODO: make the link generic -->
+    <UButton no-prefetch :to="{ path: `/${universe}/${props.item.id || props.item.name}`, query: { url: props.item.url } }" :label="props.item.name" variant="ghost" />
   </div>
 </template>
