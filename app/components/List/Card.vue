@@ -1,20 +1,20 @@
 <script setup lang="ts">
 const props = defineProps<{
-  variant: 'list' | 'grid' | undefined
+  universe: string
+  item: any
+  imagetemplate: string
 }>()
-const cardVariant = computed(() =>
-  ref(props.variant).value === 'list' ? 'subtle' : 'solid',
-)
 </script>
 
 <template>
-  <UCard :variant="cardVariant" :ui="{ header: 'p-0 py-2 sm:p-0 sm:py-2', footer: 'p-0 sm:p-0 max-h-[2rem]', body: 'p-0 sm:p-0' }">
-    <template #header>
-      <slot name="header" />
-    </template>
-    <slot name="content" />
-    <template #footer>
-      <slot name="footer" />
-    </template>
-  </UCard>
+  <div class="flex items-center justify-center w-full">
+    <div>
+      <ListAvatar :item="props.item" :imagetemplate="props.imagetemplate" />
+    </div>
+    <span>
+      {{ item.name }}
+    </span>
+
+    <UButton no-prefetch :to="`/${universe}/${props.item.id}`" :label="props.item.name" variant="ghost" />
+  </div>
 </template>

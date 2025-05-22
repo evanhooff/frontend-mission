@@ -6,10 +6,8 @@ const universe = universeStore.getCurrentUniverse || ''
 </script>
 
 <template>
-  <div>
-    <ClientOnly><p>Custom layout for list view of {{ universe }}</p></ClientOnly>
-    <div class="">
-      <slot />
-    </div>
+  <div :class="`list-layout-${universe}`">
+    <!-- room for site-wide content, like notifications or modals -->
+    <slot />
   </div>
 </template>

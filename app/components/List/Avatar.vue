@@ -11,13 +11,11 @@ const imageTemplate = computed(() => {
 
 <template>
   <ClientOnly>
-    <template #default>
-      <img class="contain w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
-    </template>
-    <template #fallback>
-      <div class="text-center">
-        loading ...
-      </div>
-    </template>
+    <UAvatar
+      :src="imageTemplate || ''"
+      :alt="props.item.name"
+      :loading="props.item.name"
+      class="object-fill w-full"
+    />
   </ClientOnly>
 </template>
