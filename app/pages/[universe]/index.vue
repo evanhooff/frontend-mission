@@ -1,11 +1,11 @@
 <script setup lang="ts">
 // import { getCurrentPage } from '@/helpers/pagination.helper'
-import { LayoutSwitcher } from '#components'
 import { useUniverseStore } from '@/stores/universe'
-import { useLayoutSwitcher } from '~/composables/useLayoutSwitcher'
 
 const universeStore = useUniverseStore()
 const universe = universeStore.getCurrentUniverse || ''
+
+universeStore.fetchUniverseItems(universe)
 
 // This registers the universe details under the 'universe' key.
 const { data: details } = await useAsyncData(universe, () => {
