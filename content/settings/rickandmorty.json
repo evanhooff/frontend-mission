@@ -1,8 +1,6 @@
 {
   "universe": "rickandmorty",
   "css_colormode": "rickandmorty",
-  "endpoint": "https://rickandmortyapi.com/api/character",
   "itemsProperty": "results",
-  "NUXT_ENV_API_ENDPOINT": "NUXT_ENV_API_ENDPOINT_RICKANDMORTY",
   "imagetemplate": "https://rickandmortyapi.com/api/character/avatar/${id}.jpeg"
 }
