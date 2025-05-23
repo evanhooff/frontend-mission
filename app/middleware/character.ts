@@ -12,7 +12,7 @@ function updateUniverseStore(page: string, url: unknown) {
   universeStore.fetchCharacterDetails(url)
 }
 export default defineNuxtRouteMiddleware((to) => {
-  console.warn('Middleware', to.query)
+  // check, this is also called from the page/universe
   if ('url' in to.query && 'universe' in to.params) {
     const { universe } = to.params
     const { url } = to.query

@@ -19,9 +19,7 @@ export default defineContentConfig({
       schema: z.object({
         universe: z.string(),
         css_colormode: z.string(),
-        endpoint: z.string(),
         itemsProperty: z.string(),
-        NUXT_ENV_API_ENDPOINT: z.string(),
         imagetemplate: z.string(),
       }),
     }),
