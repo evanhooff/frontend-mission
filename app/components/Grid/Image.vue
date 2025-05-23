@@ -12,7 +12,7 @@ const imageTemplate = computed(() => {
 <template>
   <ClientOnly>
     <template #default>
-      <img class="object-fill w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name">
+      <img class="object-fill w-full" :src="imageTemplate || ''" alt="Image" :loading="props.item.name || ''">
       <!-- <NuxtImg
         provider="netlify"
         :src="imageTemplate || ''"

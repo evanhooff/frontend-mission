@@ -55,17 +55,15 @@ export const useUniverseStore = defineStore('universe', {
     },
     async fetchUniverseItems(universe: string) {
       const availableItems = this.getItemsPerUniverse(universe)
+
       if (availableItems.length > 0) {
         // if items are already stored, do not fetch again
         return
       }
       if (this.getSettingsByUniverse(universe)) {
-        const { endpoint, itemsProperty } = this.getSettingsByUniverse(universe) as SettingsCollectionItem
-        const { data } = await useFetch(endpoint, {
-          onResponseError() {
-            throw new Error('Error fetching universe items')
-          },
-        })
+        const { itemsProperty } = this.getSettingsByUniverse(universe) as SettingsCollectionItem
+
+        const { data } = await useFetch(`/api/${universe}`)
         this.storeItemsPerUniverse(this.currentUniverse, data, itemsProperty)
       }
     },

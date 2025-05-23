@@ -37,6 +37,16 @@ export default defineNuxtConfig({
     } as any),
   },
 
+  runtimeConfig: {
+    public: {
+      apiBase: '/api',
+      universe: {
+        pokemon: 'https://pokeapi.co/api/v2/pokemon',
+        rickandmorty: 'https://rickandmortyapi.com/api/character',
+      },
+    },
+  },
+
   future: {
     compatibilityVersion: 4,
   },

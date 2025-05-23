@@ -12,9 +12,9 @@ function updateUniverseStore(page: string) {
 }
 
 export default defineNuxtRouteMiddleware((to) => {
-  if ('page' in to.params) {
-    const { page } = to.params
-    updateUniverseStore(page)
-    updateColorMode(page)
+  if ('universe' in to.params) {
+    const { universe } = to.params
+    updateUniverseStore(universe)
+    updateColorMode(universe)
   }
 })
