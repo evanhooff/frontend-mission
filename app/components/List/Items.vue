@@ -13,17 +13,14 @@ const imagetemplate = settings.value?.imagetemplate || ''
 const listStyle = tv({
   slots: {
     container: 'block w-full',
-    content: 'flex w-full gap-4 place-content-between',
   },
   variants: {
     variant: {
       list: {
         container: 'flex flex-col flex-wrap w-full gap-4',
-        content: 'w-full  text-left',
       },
       grid: {
         container: 'grid grid-cols-3 md:grid-cols-4 gap-4 text-center',
-        content: 'flex-col flex-wrap',
       },
     },
   },
@@ -41,35 +38,15 @@ const listVariant = computed(() =>
 </script>
 
 <template>
-  <div>
-    <!-- TODO: set Suspense back with proper skeleton -->
-    <!-- TODO: Use a composable to render as grid card or list card -->
-    <ClientOnly>
-      <div
-        v-if="layoutVariant === 'list'" data-items="true"
-        :class="listVariant.container()"
-      >
-        <ListCard
-          v-for="item in items"
-          :key="item.name"
-          :class="listVariant.content()"
-          :universe="universe"
-          :item="item"
-          :imagetemplate="imagetemplate"
-        />
-      </div>
-      <div v-else data-items="true" :class="listVariant.container()">
-        <GridCard
-          v-for="item in items"
-          :key="item.name"
-          :class="listVariant.content()"
-          :universe="universe"
-          :item="item"
-          :imagetemplate="imagetemplate"
-        />
-
-        <LayoutPagination />
-      </div>
-    </ClientOnly>
-  </div>
+  <Suspense>
+    <div data-items="true" :class="listVariant.container()">
+      <ListItem
+        v-for="item in items"
+        :key="item.name"
+        :universe="universe"
+        :item="item"
+        :imagetemplate="imagetemplate"
+      />
+    </div>
+  </Suspense>
 </template>
